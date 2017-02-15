@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'navigate' do
   before do
-    @user = User.create(email: "test@test.com", password: "123456", password_confirmation: "123456", first_name: "Tia", last_name: "Fowers")
+    @user = FactoryGirl.create(:user)
     login_as(@user, :scope => :user)
   end
 
@@ -20,16 +20,15 @@ describe 'navigate' do
     end
 
     it 'has a list of posts' do
-      post1 = Post.create(date: Date.today, rationale: "Post1", user_id: @user.id)
-      post2 = Post.create(date: Date.today, rationale: "Post2", user_id: @user.id)
+      post1 = FactoryGirl.build_stubbed(:post)
+      post2 = FactoryGirl.build_stubbed(:second_post)
       visit posts_path
-      expect(page).to have_content(/Post1|Post2/)
+      expect(page).to have_content(/Rationale|content/)
     end
   end
 
   describe 'creation' do
-    before do 
-      post = Post.create()
+    before do
       visit new_post_path
     end
 
@@ -45,12 +44,35 @@ describe 'navigate' do
       expect(page).to have_content("Some rationale")
     end
 
-    it 'will have a user associated with it' do
+    it 'will have a user associated it' do
       fill_in 'post[date]', with: Date.today
       fill_in 'post[rationale]', with: "User Association"
       click_on "Save"
 
       expect(User.last.posts.last.rationale).to eq("User Association")
+    end
+  end
+
+  describe 'edit' do
+    before do
+      @post = FactoryGirl.create(:post)
+    end
+
+    it 'can be reached by clicking edit on index page' do
+      visit posts_path
+
+      click_link ("edit_#{@post.id}")
+      expect(page.status_code).to eq(200)
+    end
+
+    it 'can be edited' do
+      visit edit_post_path(@post)
+
+      fill_in 'post[date]', with: Date.today
+      fill_in 'post[rationale]', with: "Edited content"
+      click_on "Save"
+
+      expect(page).to have_content("Edited content")
     end
   end
 end

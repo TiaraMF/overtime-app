@@ -9,5 +9,5 @@ FactoryGirl.define do
     date Date.yesterday
     rationale "Some more content"
     user
-  end   
+  end     
 end

@@ -17,5 +17,5 @@
 
 ## UI:
 - x Bootstrap -> formatting
-- Icons from Font Awesome
+- x Icons from glyphicons
 - x Update the styles for forms

@@ -1,15 +1,15 @@
 @user = User.create(email: "test@test.com", 
-                    password: "asdfasdf", 
-                    password_confirmation: "asdfasdf", 
+                    password: "123456", 
+                    password_confirmation: "123456", 
                     first_name: "John", 
                     last_name: "Doe",
                     phone: "3858316540")
 
 puts "1 User created"
 
-AdminUser.create(email: "admin@test.com", 
-                  password: "asdfasdf", 
-                  password_confirmation: "asdfasdf", 
+AdminUser.create(email: "tia.fowers@gmail.com", 
+                  password: "123456", 
+                  password_confirmation: "123456", 
                   first_name: "Admin", 
                   last_name: "User",
                   phone: "3858316540")
@@ -27,3 +27,9 @@ puts "100 Posts have been created"
 end
 
 puts "100 audit logs have been created"
+
+100.times do |post|
+  Post.create!(date: Date.today, rationale: "#{post} rationale content Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", user_id: @user.id, overtime_request: 2.5)
+end
+
+puts "100 posts have been created"

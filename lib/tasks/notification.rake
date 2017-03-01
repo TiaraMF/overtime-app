@@ -3,7 +3,7 @@ namespace :notification do
   task sms: :environment do
     if not_the_weekend
       employees = Employee.all
-      notification_message = "Please log into the time tracking dashboard to submit your hours for yesterday: https://tmf-overtime.herokuapp.com"
+      notification_message = "Please log into the time tracking dashboard to submit your hours for yesterday: https://wlp-overtime.herokuapp.com"
 
       employees.each do |employee|
         AuditLog.create!(user_id: employee.id)
